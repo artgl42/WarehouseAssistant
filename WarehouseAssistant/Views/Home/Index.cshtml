@@ -1,0 +1,33 @@
+﻿@using WarehouseAssistant.Models
+@model IEnumerable<Transaction>
+
+@{
+    ViewData["Title"] = "Транзакции";
+}
+
+<table class="table">
+    <tr>
+        <td>Время</td>
+        <td>Расход (со склада)</td>
+        <td>Приход (на склад)</td>
+        <td>Товар</td>
+        <td>Количество</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.DateTime</td>
+            <td>@item.WarehouseFrom.Name</td>
+            <td>@item.WarehouseIn.Name</td>
+            <td>@item.Product.Name</td>
+            <td>@item.Count</td>
+            <td>
+                <i class="bi bi-backspace-fill"></i>
+                <a asp-action="Delete" asp-controller="Home" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+    }
+</table>
+<div class="form-group">
+    <a asp-action="Create" type="button" class="btn btn-primary mb-1">Создать транзакцию</a>
+</div>

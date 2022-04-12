@@ -1,0 +1,30 @@
+﻿@using WarehouseAssistant.Models
+@model IEnumerable<Transaction>
+
+@{
+    ViewData["Title"] = "Warehouse";
+}
+
+<form asp-action="warehouse" asp-controller="home">
+    <div class="form-group">
+        <label class="control-label">Выберите склад:</label>
+        @Html.DropDownList("Id",ViewBag.Warehouses as SelectList)
+    </div>
+    <div class="form-group">
+        <label class="control-label">Дата:</label>
+        <input name="date" type="date" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Показать" class="btn btn-success" />
+    </div>
+</form>
+
+<table class="table">
+    @if (Model != null) foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Product.Name</td>
+                <td>@p.Count</td>
+            </tr>
+        }
+</table>

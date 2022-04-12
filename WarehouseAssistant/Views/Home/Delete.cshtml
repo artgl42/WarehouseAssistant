@@ -1,0 +1,27 @@
+﻿@model WarehouseAssistant.Models.Transaction
+
+@{
+    ViewBag.Title = "Удаление транзакции";
+}
+
+<form asp-action="delete" asp-controller="home" method="post">
+    <table class="table">
+        <tr>
+            <td>Транзакция</td>
+            <td>Расход (со склада)</td>
+            <td>Приход (на склад)</td>
+            <td>Товар</td>
+            <td>Количество</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayFor(model => model.Id)</td>
+            <td>@Html.DisplayFor(model => model.WarehouseFromId)</td>
+            <td>@Html.DisplayFor(model => model.WarehouseInId)</td>
+            <td>@Html.DisplayFor(model => model.ProductId)</td>
+            <td>@Html.DisplayFor(model => model.Count)</td>
+        </tr>
+    </table>
+    <div class="form-group">
+        <input type="submit" class="btn btn-danger" value="Удалить" />
+    </div>
+</form>

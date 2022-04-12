@@ -1,0 +1,39 @@
+﻿@using WarehouseAssistant.Models
+@model IEnumerable<Transaction>
+
+@{
+    ViewBag.Title = "Создание транзакции";
+}
+
+<form asp-action="create" asp-controller="home">
+    <div class="form-group">
+        <label class="control-label">Расход (со склада)</label>
+        @Html.DropDownList("WarehouseFromId",ViewBag.Warehouses as SelectList)
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Приход (на склад)</label>
+        @Html.DropDownList("WarehouseInId", ViewBag.Warehouses as SelectList)
+    </div>
+    <div class="form-group">
+        <table class="table">
+            <tr>
+                <td>Id</td>
+                <td>Товар</td>
+            </tr>
+            @foreach (var item in ViewBag.Products.Items)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>
+                        <input type="number" name="productCount" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Отправить" class="btn btn-success" />
+    </div>
+</form>
