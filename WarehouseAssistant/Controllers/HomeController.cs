@@ -13,10 +13,12 @@ namespace WarehouseAssistant.Controllers
     public class HomeController : Controller
     {
         private readonly Models.AppContext _db;
+
         public HomeController(Models.AppContext context)
         {
             _db = context;
         }
+
         public async Task<IActionResult> Index()
         {
             var transactions = _db.Transactions
@@ -26,6 +28,7 @@ namespace WarehouseAssistant.Controllers
               .ToListAsync();
             return View(await transactions);
         }
+
         public IActionResult Create()
         {
             var warehouses = new SelectList(_db.Warehouses, "Id", "Name");
@@ -34,6 +37,7 @@ namespace WarehouseAssistant.Controllers
             ViewBag.Products = products;
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(Transaction transaction, string[] productCount)
         {
@@ -46,23 +50,26 @@ namespace WarehouseAssistant.Controllers
             }
             return RedirectToAction("Create");
         }
-        public IActionResult Warehouse()
+
+        public IActionResult Report()
         {
             ViewBag.Warehouses = new SelectList(_db.Warehouses, "Id", "Name");
             return View();
         }
+
         [HttpPost]
-        public async Task<IActionResult> Warehouse(int? id, DateTime date)
+        public async Task<IActionResult> Report(int? id, DateTime date)
         {
             ViewBag.Warehouses = new SelectList(_db.Warehouses, "Id", "Name");
 
             if (id == null && date == null)
             {
-                return RedirectToAction("Warehouse");
+                return RedirectToAction("Report");
             }
 
             return View(await GetBalance(id, date));
         }
+
         [HttpGet]
         [ActionName("Delete")]
         public async Task<IActionResult> ConfirmDelete(int? id)
@@ -75,6 +82,7 @@ namespace WarehouseAssistant.Controllers
             }
             return NotFound();
         }
+
         [HttpPost]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -87,11 +95,13 @@ namespace WarehouseAssistant.Controllers
             }
             return NotFound();
         }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
         private List<Transaction> CreateTransactions(Transaction transaction, string[] productCount)
         {
             var _listTransactions = new List<Transaction>();

@@ -1,0 +1,29 @@
+﻿@using WarehouseAssistant.Models
+@model IEnumerable<Warehouse>
+
+@{
+    ViewData["Title"] = "Склады";
+}
+
+<table class="table">
+    <tr>
+        <td>Id</td>
+        <td>Название</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>
+                <i class="bi bi-backspace-fill"></i>
+                <a asp-action="Delete" asp-controller="Warehouse" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<form asp-controller="Warehouse" asp-action="Index" method="post">
+    <p>Название нового склада: <input name="nameWarehouse" /></p>
+    <input type="submit" class="btn btn-primary mb-1" value="Добавить склад" />
+</form>

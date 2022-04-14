@@ -2,10 +2,10 @@
 @model IEnumerable<Transaction>
 
 @{
-    ViewData["Title"] = "Warehouse";
+    ViewData["Title"] = "Report";
 }
 
-<form asp-action="warehouse" asp-controller="home">
+<form asp-action="report" asp-controller="home">
     <div class="form-group">
         <label class="control-label">Выберите склад:</label>
         @Html.DropDownList("Id",ViewBag.Warehouses as SelectList)
